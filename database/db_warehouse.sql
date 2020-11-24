@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Nov 2020 pada 14.46
--- Versi server: 10.1.37-MariaDB
--- Versi PHP: 7.2.12
+-- Waktu pembuatan: 24 Nov 2020 pada 15.49
+-- Versi server: 10.4.11-MariaDB
+-- Versi PHP: 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -45,6 +44,31 @@ INSERT INTO `kategori` (`id`, `kode_kategori`, `nama_kategori`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `pencatatan_produk`
+--
+
+CREATE TABLE `pencatatan_produk` (
+  `id_pencatatan` int(11) NOT NULL,
+  `jml_produk` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pengembalian_produk`
+--
+
+CREATE TABLE `pengembalian_produk` (
+  `id_pengembalian` int(11) NOT NULL,
+  `keterangan` varchar(255) NOT NULL,
+  `jml_produk` int(11) NOT NULL,
+  `tgl_pengajuan` date NOT NULL,
+  `tgl_pengembalian` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `produk`
 --
 
@@ -56,8 +80,8 @@ CREATE TABLE `produk` (
   `merk_produk` varchar(255) NOT NULL,
   `tgl_produksi` date NOT NULL,
   `tgl_kadaluarsa` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -77,6 +101,18 @@ INSERT INTO `produk` (`id_produk`, `kategori_id`, `nama_produk`, `deskripsi_prod
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `status`
+--
+
+CREATE TABLE `status` (
+  `id_status` int(11) NOT NULL,
+  `kode` varchar(255) NOT NULL,
+  `nama` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `stok`
 --
 
@@ -86,7 +122,7 @@ CREATE TABLE `stok` (
   `jml_stok` int(11) NOT NULL,
   `jml_prd_bagus` int(11) NOT NULL,
   `jml_prd_cacat` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -102,11 +138,29 @@ ALTER TABLE `kategori`
   ADD UNIQUE KEY `kode` (`kode_kategori`);
 
 --
+-- Indeks untuk tabel `pencatatan_produk`
+--
+ALTER TABLE `pencatatan_produk`
+  ADD PRIMARY KEY (`id_pencatatan`);
+
+--
+-- Indeks untuk tabel `pengembalian_produk`
+--
+ALTER TABLE `pengembalian_produk`
+  ADD PRIMARY KEY (`id_pengembalian`);
+
+--
 -- Indeks untuk tabel `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`id_produk`),
   ADD KEY `kategori_id` (`kategori_id`);
+
+--
+-- Indeks untuk tabel `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`id_status`);
 
 --
 -- Indeks untuk tabel `stok`
@@ -120,10 +174,28 @@ ALTER TABLE `stok`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `pencatatan_produk`
+--
+ALTER TABLE `pencatatan_produk`
+  MODIFY `id_pencatatan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `pengembalian_produk`
+--
+ALTER TABLE `pengembalian_produk`
+  MODIFY `id_pengembalian` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
   MODIFY `id_produk` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT untuk tabel `status`
+--
+ALTER TABLE `status`
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `stok`
