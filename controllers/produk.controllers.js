@@ -24,7 +24,7 @@ exports.produkAll = ((req,res)=>{
         if(err){
             console.log(err);
         }        
-        response.success(rows,res);        
+        response.success(messageSuccess,rows,res);        
     });
 });
 
@@ -36,7 +36,7 @@ exports.produkByKategori =((req,res)=>{
     (err,rows,fields)=>{
         if(err) response.error(res);
         data =(rows != null) ? rows : {'message':'data kosong'};
-        response.success(data,res);
+        response.success(messageSuccess,data,res);
     });
 });
 
@@ -47,7 +47,7 @@ exports.produkById =((req,res)=>{
     (err,rows,fields)=>{
         if(err) response.error(res);
         data =(rows != null) ? rows : {'message':'data kosong'};
-        response.success(data,res);
+        response.success(messageSuccess,data,res);
     });
 });
 
