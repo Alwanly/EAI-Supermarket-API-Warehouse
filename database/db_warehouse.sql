@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Nov 2020 pada 17.28
+-- Waktu pembuatan: 25 Nov 2020 pada 02.40
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.2.12
 
@@ -21,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_warehouse`
 --
-CREATE DATABASE IF NOT EXISTS `db_warehouse` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `db_warehouse`;
 
 -- --------------------------------------------------------
 
@@ -30,13 +28,10 @@ USE `db_warehouse`;
 -- Struktur dari tabel `kategori`
 --
 
-DROP TABLE IF EXISTS `kategori`;
-CREATE TABLE IF NOT EXISTS `kategori` (
+CREATE TABLE `kategori` (
   `id` int(11) NOT NULL,
   `kode_kategori` varchar(255) NOT NULL,
-  `nama_kategori` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `kode` (`kode_kategori`)
+  `nama_kategori` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -53,17 +48,13 @@ INSERT INTO `kategori` (`id`, `kode_kategori`, `nama_kategori`) VALUES
 -- Struktur dari tabel `pencatatan_produk`
 --
 
-DROP TABLE IF EXISTS `pencatatan_produk`;
-CREATE TABLE IF NOT EXISTS `pencatatan_produk` (
-  `id_pencatatan` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pencatatan_produk` (
+  `id_pencatatan` int(11) NOT NULL,
   `status_id` int(11) NOT NULL,
   `produk_id` bigint(20) NOT NULL,
   `jml_produk` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_pencatatan`),
-  KEY `status_id` (`status_id`),
-  KEY `produk_id` (`produk_id`)
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -72,18 +63,15 @@ CREATE TABLE IF NOT EXISTS `pencatatan_produk` (
 -- Struktur dari tabel `pengembalian_produk`
 --
 
-DROP TABLE IF EXISTS `pengembalian_produk`;
-CREATE TABLE IF NOT EXISTS `pengembalian_produk` (
-  `id_pengembalian` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pengembalian_produk` (
+  `id_pengembalian` int(11) NOT NULL,
   `produk_id` bigint(20) NOT NULL,
   `keterangan` varchar(255) NOT NULL,
   `jml_produk` int(11) NOT NULL,
   `tgl_pengajuan` date NOT NULL,
   `tgl_pengembalian` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_pengembalian`),
-  KEY `produk_id` (`produk_id`)
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -92,9 +80,8 @@ CREATE TABLE IF NOT EXISTS `pengembalian_produk` (
 -- Struktur dari tabel `produk`
 --
 
-DROP TABLE IF EXISTS `produk`;
-CREATE TABLE IF NOT EXISTS `produk` (
-  `id_produk` bigint(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `produk` (
+  `id_produk` bigint(20) NOT NULL,
   `kategori_id` int(11) NOT NULL,
   `nama_produk` varchar(255) NOT NULL,
   `deskripsi_produk` varchar(255) NOT NULL,
@@ -102,10 +89,15 @@ CREATE TABLE IF NOT EXISTS `produk` (
   `tgl_produksi` date NOT NULL,
   `tgl_kadaluarsa` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_produk`),
-  KEY `kategori_id` (`kategori_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `produk`
+--
+
+INSERT INTO `produk` (`id_produk`, `kategori_id`, `nama_produk`, `deskripsi_produk`, `merk_produk`, `tgl_produksi`, `tgl_kadaluarsa`, `created_at`, `updated_at`) VALUES
+(3, 1, 'Chitato', 'Makan ringan terbuat dari kentang', 'indofood', '2020-11-01', '2021-11-01', '2020-11-25 01:12:32', '2020-11-25 01:12:32');
 
 -- --------------------------------------------------------
 
@@ -113,14 +105,12 @@ CREATE TABLE IF NOT EXISTS `produk` (
 -- Struktur dari tabel `status`
 --
 
-DROP TABLE IF EXISTS `status`;
-CREATE TABLE IF NOT EXISTS `status` (
-  `id_status` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `status` (
+  `id_status` int(11) NOT NULL,
   `kode_status` varchar(255) NOT NULL,
   `nama_status` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id_status`)
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -129,18 +119,95 @@ CREATE TABLE IF NOT EXISTS `status` (
 -- Struktur dari tabel `stok`
 --
 
-DROP TABLE IF EXISTS `stok`;
-CREATE TABLE IF NOT EXISTS `stok` (
-  `id_stok` bigint(20) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `stok` (
+  `id_stok` bigint(20) NOT NULL,
   `produk_id` bigint(20) NOT NULL,
   `jml_stok` int(11) NOT NULL,
   `jml_prd_bagus` int(11) NOT NULL,
   `jml_prd_cacat` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id_stok`),
-  KEY `produk_id` (`produk_id`)
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indeks untuk tabel `kategori`
+--
+ALTER TABLE `kategori`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kode` (`kode_kategori`);
+
+--
+-- Indeks untuk tabel `pencatatan_produk`
+--
+ALTER TABLE `pencatatan_produk`
+  ADD PRIMARY KEY (`id_pencatatan`),
+  ADD KEY `status_id` (`status_id`),
+  ADD KEY `pencata_produk_ibfk_2` (`produk_id`);
+
+--
+-- Indeks untuk tabel `pengembalian_produk`
+--
+ALTER TABLE `pengembalian_produk`
+  ADD PRIMARY KEY (`id_pengembalian`),
+  ADD KEY `produk_id` (`produk_id`);
+
+--
+-- Indeks untuk tabel `produk`
+--
+ALTER TABLE `produk`
+  ADD PRIMARY KEY (`id_produk`),
+  ADD KEY `kategori_id` (`kategori_id`);
+
+--
+-- Indeks untuk tabel `status`
+--
+ALTER TABLE `status`
+  ADD PRIMARY KEY (`id_status`);
+
+--
+-- Indeks untuk tabel `stok`
+--
+ALTER TABLE `stok`
+  ADD PRIMARY KEY (`id_stok`),
+  ADD KEY `produk_id` (`produk_id`);
+
+--
+-- AUTO_INCREMENT untuk tabel yang dibuang
+--
+
+--
+-- AUTO_INCREMENT untuk tabel `pencatatan_produk`
+--
+ALTER TABLE `pencatatan_produk`
+  MODIFY `id_pencatatan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `pengembalian_produk`
+--
+ALTER TABLE `pengembalian_produk`
+  MODIFY `id_pengembalian` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `produk`
+--
+ALTER TABLE `produk`
+  MODIFY `id_produk` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `status`
+--
+ALTER TABLE `status`
+  MODIFY `id_status` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `stok`
+--
+ALTER TABLE `stok`
+  MODIFY `id_stok` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
@@ -150,6 +217,7 @@ CREATE TABLE IF NOT EXISTS `stok` (
 -- Ketidakleluasaan untuk tabel `pencatatan_produk`
 --
 ALTER TABLE `pencatatan_produk`
+  ADD CONSTRAINT `pencata_produk_ibfk_2` FOREIGN KEY (`produk_id`) REFERENCES `produk` (`id_produk`),
   ADD CONSTRAINT `pencatatan_produk_ibfk_1` FOREIGN KEY (`status_id`) REFERENCES `status` (`id_status`);
 
 --
@@ -162,8 +230,7 @@ ALTER TABLE `pengembalian_produk`
 -- Ketidakleluasaan untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  ADD CONSTRAINT `produk_ibfk_1` FOREIGN KEY (`kategori_id`) REFERENCES `kategori` (`id`),
-  ADD CONSTRAINT `produk_ibfk_2` FOREIGN KEY (`id_produk`) REFERENCES `pencatatan_produk` (`produk_id`);
+  ADD CONSTRAINT `produk_ibfk_1` FOREIGN KEY (`kategori_id`) REFERENCES `kategori` (`id`);
 
 --
 -- Ketidakleluasaan untuk tabel `stok`
