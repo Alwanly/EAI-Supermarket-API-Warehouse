@@ -19,9 +19,9 @@ module.exports = ((app)=>{
     app.route('/category/create').post(kategoriController.createKategori);
     
     app.route('/pengembalian').get(pengembalianController.pengembalianGetAll);
-    app.route('/pengembalian/:id/update').put(kategoriController.updatePengembalian);
-    app.route('/pengembalian/:id/delete').delete(kategoriController.deletePengembalian);
-    app.route('/pengembalian/create').post(kategoriController.createPengembalian);
+    app.route('/pengembalian/:id/update').put(pengembalianController.updatePengembalian);
+    app.route('/pengembalian/:id/delete').delete(pengembalianController.deletePengembalian);
+    app.route('/pengembalian/create').post(pengembalianController.createPengembalian);
     
     app.route('/stok').get(stokController.stokGetAll);
     app.route('/stok/:id/update').put(stokController.updateStok);
