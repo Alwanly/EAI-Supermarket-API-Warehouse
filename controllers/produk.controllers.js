@@ -31,12 +31,14 @@ exports.produkAll = ((req,res)=>{
 
 exports.produkByKategori =((req,res)=>{
     const kategori = req.params.kategori;
-    conn.query('SELECT * FROM produk RIGHT JOIN kategori ON produk.kategori_id = kategori.id WHERE kategori.kode = ?',
+    conn.query('SELECT * FROM produk RIGHT JOIN kategori ON produk.kategori_id = kategori.id WHERE kategori.kode_kategori = ?',
     [kategori],
     (err,rows,fields)=>{
-        if(err) response.error(res);
-        data =(rows != null) ? rows : {'message':'data kosong'};
-        response.success(messageSuccess,data,res);
+        if(err) {
+            response.error(res)
+        };        
+
+        response.success(messageSuccess,rows,res);
     });
 });
 
