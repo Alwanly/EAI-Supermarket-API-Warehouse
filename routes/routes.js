@@ -3,12 +3,13 @@ const { pengembalianGetAll } = require('../controllers/pengembalian_produk.contr
 module.exports = ((app)=>{
     const produkController = require('../controllers/produk.controllers');
     const kategoriController = require('../controllers/kategori.controllers');
-<<<<<<< HEAD
+
     const statusController = require('../controllers/status.controllers');
-=======
+
     const pengembalianController = require('../controllers/pengembalian.controllers');
     const stokController = require('../controllers/stok.controllers');
->>>>>>> 8a90e6bc15969b672a37544fd91f54cc8f1dcc92
+    const pencatatanProdukController = require ('../controllers/pencatatan.produk.controller')
+
 
     app.route('/products').get(produkController.produkAll);
     app.route('/products/:kategori').get(produkController.produkByKategori);
@@ -16,7 +17,12 @@ module.exports = ((app)=>{
     app.route('/product/:id/update').put(produkController.updateProduk);
     app.route('/product/:id/delete').delete(produkController.deleteProduk);
     app.route('/product/create').post(produkController.createProduk);
-    
+
+    app.route('/notes').get(pencatatanProdukController.pencatatanProdukGetAll);
+    app.route('/note/:id/update').put(pencatatanProdukController.updatePencatatan);
+    app.route('/note/:id/delete').delete(pencatatanProdukController.deletePencatatan);
+    app.route('/note/create').post(pencatatanProdukController.createPencatatanProduk);
+
     app.route('/categories').get(kategoriController.kategoriGetAll);
     app.route('/category/:id/update').put(kategoriController.updateKategori);
     app.route('/category/:id/delete').delete(kategoriController.deleteKategori);
