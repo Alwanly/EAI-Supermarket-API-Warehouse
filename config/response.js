@@ -1,6 +1,6 @@
 exports.success = ((message,values, res)=>{
     const data ={
-        'status':200,
+        'status':true,
         'message':message,
         'results':values
     };
@@ -8,10 +8,10 @@ exports.success = ((message,values, res)=>{
     res.end;
 })
 
-exports.error = ((res)=>{
+exports.error = ((message,res)=>{
     const data ={
-        'status':404,
-        'message':'Error'
+        'status':false,
+        'message':message
     };
     res.status(404);
     res.json(data);
