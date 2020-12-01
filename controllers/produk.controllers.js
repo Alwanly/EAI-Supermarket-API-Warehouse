@@ -42,7 +42,7 @@ const Produk = ((element)=>{
 
 
 exports.produkAll = ((req,res)=>{
-    conn.query('SELECT * FROM produk INNER JOIN kategori ON produk.kategori_id = kategori.id INNER',
+    conn.query('SELECT * FROM produk INNER JOIN kategori ON produk.kategori_id = kategori.id',
     (err,rows,fields)=>{
         if(err){console.log(err); response.error(messageError,res);};     
         dataResponseProduk = rows;       
