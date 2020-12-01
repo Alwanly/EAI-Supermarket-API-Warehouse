@@ -40,5 +40,5 @@ module.exports = ((app,router)=>{
     router.delete('/status/:id/delete',statusController.deleteStatus);
     router.post('/status/create',statusController.createStatus);
 
-    app.use('/warehouse/api/v1/',router);
+    app.use('/api/v1/',router);
 })
