@@ -29,7 +29,7 @@ const Produk = ((element)=>{
             id_kategori:element.id_kategori,
             kode_kategori:element.kode_kategori,
             nama_kategori:element.nama_kategori
-        },
+        },        
         deskripsi_produk:element.deskripsi_produk,
         merk_produk:element.merk_produk,
         tgl_produksi:formatDate(element.tgl_produksi),
@@ -42,7 +42,7 @@ const Produk = ((element)=>{
 
 
 exports.produkAll = ((req,res)=>{
-    conn.query('SELECT * FROM produk INNER JOIN kategori ON produk.kategori_id = kategori.id',
+    conn.query('SELECT * FROM produk INNER JOIN kategori ON produk.kategori_id = kategori.id INNER',
     (err,rows,fields)=>{
         if(err){console.log(err); response.error(messageError,res);};     
         dataResponseProduk = rows;       
@@ -94,8 +94,8 @@ exports.produkById =((req,res)=>{
 exports.createProduk = ((req,res)=>{
     const data = Produk(req.body);
     console.log(data);    
-    conn.query("INSERT INTO produk (kategori_id,nama_produk,deskripsi_produk,merk_produk,tgl_produksi,tgl_kadaluarsa)VALUES (?,?,?,?,?,?)",
-    [data.kategori.id_kategori,data.nama_produk,data.deskripsi_produk,data.merk_produk,data.tgl_produksi,data.tgl_kadaluarsa],
+    conn.query("INSERT INTO produk (kode_produk,kategori_id,nama_produk,deskripsi_produk,merk_produk,tgl_produksi,tgl_kadaluarsa)VALUES (?,?,?,?,?,?,?)",
+    [data.kode_produk,data.kategori.id_kategori,data.nama_produk,data.deskripsi_produk,data.merk_produk,data.tgl_produksi,data.tgl_kadaluarsa],
     (err,rows,fields)=>{
         if(err) {
             console.log(err);
@@ -122,8 +122,8 @@ exports.deleteProduk = ((req,res)=>{
 exports.updateProduk = ((req,res)=>{   
     const idProduk = req.params.id; 
     const data = Produk(req.body);            
-    conn.query("UPDATE produk set kategori_id = ?, nama_produk=?,deskripsi_produk=?,merk_produk=?,tgl_produksi=?,tgl_kadaluarsa=? WHERE id_produk = ?",
-    [data.kategori.id_kategori,data.nama_produk,data.deskripsi_produk,data.merk_produk,data.tgl_produksi,data.tgl_kadaluarsa,idProduk],
+    conn.query("UPDATE produk set kode_produk=? kategori_id = ?, nama_produk=?,deskripsi_produk=?,merk_produk=?,tgl_produksi=?,tgl_kadaluarsa=? WHERE id_produk = ?",
+    [data.kode_produk,data.kategori.id_kategori,data.nama_produk,data.deskripsi_produk,data.merk_produk,data.tgl_produksi,data.tgl_kadaluarsa,idProduk],
     (err,rows,fields)=>{
         if(err) {
             console.log(err);
