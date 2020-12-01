@@ -6,6 +6,7 @@ const messageSuccess = "success";
 const messageFailed ="failed";
 const messageError = "error";
 
+
 const pencatatan_produk = ((pencatatan)=>{
     const object ={};
     object.idPencatatan = pencatatan.id_pencatatan;

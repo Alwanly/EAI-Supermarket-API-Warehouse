@@ -5,76 +5,352 @@ HOST: https://polls.apiblueprint.org/
 
 Polls is a simple API allowing consumers to view polls and vote in them.
 
-## Questions Collection [/questions]
 
-### List All Questions [GET]
+## Produk [/products]
+### GET All Produk [GET]
+
++ Response 200 (application/json)
+    {
+    "status": true,
+    "message": "Success",
+    "results": [
+        {
+            "id_produk": 1,
+            "kode_produk": "A11",
+            "nama_produk": "Oreo Vanilla",
+            "kategori": {
+                "kode_kategori": "A1",
+                "nama_kategori": "Makanan"
+            },
+            "deskripsi_produk": "Biskuit coklat dengan krim putih di tengahnya",
+            "merk_produk": "Oreo",
+            "tgl_produksi": "2019-12-31T17:00:00.000Z",
+            "tgl_kadaluarsa": "2019-12-31T17:00:00.000Z",
+            "created_at": "2020-12-01T17:12:18.000Z",
+            "updated_at": "2020-12-01T17:12:18.000Z"
+        },
+        {
+            "id_produk": 2,
+            "kode_produk": "A22",
+            "nama_produk": "Ultramilk Vanilla",
+            "kategori": {
+                "kode_kategori": "A2",
+                "nama_kategori": "Minuman"
+            },
+            "deskripsi_produk": "Susu sapi rasa vanilla",
+            "merk_produk": "Ultramilk",
+            "tgl_produksi": "2020-01-31T17:00:00.000Z",
+            "tgl_kadaluarsa": "2020-01-31T17:00:00.000Z",
+            "created_at": "2020-12-01T17:12:18.000Z",
+            "updated_at": "2020-12-01T17:12:18.000Z"
+        }
+    ]
+}
+
+### GET All Produk By Category [GET]
+
++ Response 200 (application/json)
+    {
+    "status": true,
+    "message": "Success",
+    "results": [
+        {
+            "id_produk": 1,
+            "kode_produk": "A11",
+            "nama_produk": "Oreo Vanilla",
+            "kategori": {
+                "kode_kategori": "A1",
+                "nama_kategori": "Makanan"
+            },
+            "deskripsi_produk": "Biskuit coklat dengan krim putih di tengahnya",
+            "merk_produk": "Oreo",
+            "tgl_produksi": "2019-12-31T17:00:00.000Z",
+            "tgl_kadaluarsa": "2019-12-31T17:00:00.000Z",
+            "created_at": "2020-12-01T17:12:18.000Z",
+            "updated_at": "2020-12-01T17:12:18.000Z"
+        },
+        {
+            "id_produk": 2,
+            "kode_produk": "A22",
+            "nama_produk": "Ultramilk Vanilla",
+            "kategori": {
+                "kode_kategori": "A2",
+                "nama_kategori": "Minuman"
+            },
+            "deskripsi_produk": "Susu sapi rasa vanilla",
+            "merk_produk": "Ultramilk",
+            "tgl_produksi": "2020-01-31T17:00:00.000Z",
+            "tgl_kadaluarsa": "2020-01-31T17:00:00.000Z",
+            "created_at": "2020-12-01T17:12:18.000Z",
+            "updated_at": "2020-12-01T17:12:18.000Z"
+        }
+    ]
+}
+
+## Stok [/api/v1/stok]
+### GET stok [GET]
++ Response 200 (application/json)
+    
+        {
+            "status": true,
+            "message": "success",
+            "results": [
+                {
+                    "id_stok": 1,
+                    "produk_id": 3,
+                    "jml_stok": 100,
+                    "jml_prd_bagus": 95,
+                    "jml_prd_cacat": 5,
+                    "created_at": "0000-00-00 00:00:00",
+                    "updated_at": "0000-00-00 00:00:00"
+                }
+            ]
+        }        
+            
+### POST stok [POST]
++ Response 200 (application/json)
+
+        {
+            "status": true,
+            "message": "success",
+            "results": [
+                {
+                    "id_stok": 1,
+                    "produk_id": 3,
+                    "jml_stok": 100,
+                    "jml_prd_bagus": 95,
+                    "jml_prd_cacat": 5,
+                    "created_at": "0000-00-00 00:00:00",
+                    "updated_at": "0000-00-00 00:00:00"
+                }
+            ]
+        }
+### PUT stok [PUT]
++ Response 200 (application/json)
+
+        {
+            "status": true,
+            "message": "success",
+            "results": [
+                {
+                    "id_stok": 1,
+                    "produk_id": 3,
+                    "jml_stok": 100,
+                    "jml_prd_bagus": 95,
+                    "jml_prd_cacat": 5,
+                    "created_at": "0000-00-00 00:00:00",
+                    "updated_at": "0000-00-00 00:00:00"
+                }
+            ]
+        }
+### DELETE stok [DELETE]
++ Response 200 (application/json)
+
+        {
+            "status": true,
+            "message": "success",
+            "results": [
+                {
+                    "id_stok": 1
+                }
+            ]
+        }
+
+## Pengembalian [/api/v1/pengembalian]
+### Get Pengembalian [GET]
+
++ Response 200 (application/json)
+
+        {
+            "status": true,
+            "message": "success",
+            "results": [
+                {
+                    "id_pengembalian": 1,
+                    "produk_id": 3,
+                    "keterangan": "Barang tidak sesuai",
+                    "jml_produk": 5,
+                    "tgl_pengajuan": "2020-11-30T17:00:00.000Z",
+                    "tgl_pengembalian": "2020-12-02T17:00:00.000Z",
+                    "created_at": "2020-12-17T15:19:33.000Z",
+                    "updated_at": "2020-12-10T15:19:33.000Z"
+                }
+            ]
+        }
+
+
+### Put Pengembalian [PUT]
+
++ Response 200 (application/json)
+
+            {
+            "status": true,
+            "message": "success",
+            "results": [
+                {
+                    "id_pengembalian": 1,
+                    "produk_id": 3,
+                    "keterangan": "Barang tidak sesuai",
+                    "jml_produk": 5,
+                    "tgl_pengajuan": "2020-11-30T17:00:00.000Z",
+                    "tgl_pengembalian": "2020-12-02T17:00:00.000Z",
+                    "created_at": "2020-12-17T15:19:33.000Z",
+                    "updated_at": "2020-12-10T15:19:33.000Z"
+                }
+            ]
+        }
+
+
+
+### Delete Pengembalian [DELETE]
+
++ Response 200 (application/json)
+
+            {
+            "status": true,
+            "message": "success",
+            "results": [
+                {
+                    "id_pengembalian": 1
+                }
+            ]
+        }
+
+
+
+### Post Pengembalian [POST]
+
++ Response 200 (application/json)
+
+            {
+                "status": true,
+                "message": "success",
+                "results": [
+                    {
+                        "id_pengembalian": 1,
+                        "produk_id": 3,
+                        "keterangan": "Barang tidak sesuai",
+                        "jml_produk": 5,
+                        "tgl_pengajuan": "2020-11-30T17:00:00.000Z",
+                        "tgl_pengembalian": "2020-12-02T17:00:00.000Z",
+                        "created_at": "2020-12-17T15:19:33.000Z",
+                        "updated_at": "2020-12-10T15:19:33.000Z"
+                    }
+                ]
+            }
+
+## Notes [/api/v1/notes]
+
+### POST a note [POST]
+
++ Response 200 (application/json)
+
+        {
+            "status":true,
+            "message":"success",
+            "results":[
+                {
+                    "id_pencatatan":4,
+                    "status_id":4,
+                    "produk_id":4,
+                    "jml_produk":10,
+                    "created_at": "2020-12-01T15:25:29.000Z",
+                    "updated_at": "0000-00-00 00:00:00"
+                }
+            ]
+        }
+
+### put note [PUT]
+
++ Response 200 (application/json)
+
+        [{
+            "status":true,
+            "message":"success",
+            "results":[
+                {
+                    "id_pencatatan":4,
+                    "status_id":4,
+                    "produk_id":4,
+                    "jml_produk":10,
+                    "created_at": "2020-12-01T15:25:29.000Z",
+                    "updated_at": "0000-00-00 00:00:00"
+                }
+            ]
+        }     
+
+
+### delete note [DELETE]
+
+
++ Response 200 (application/json)
+
+        {
+            "status":true,
+            "message":{
+                "id_pencatatan":4,            
+            }                            
+        }
+
+## Categories [/api/v1/categories]
+
+### List All Categories [GET]
 
 + Response 200 (application/json)
 
         [
             {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
+                "status": true,
+                "message": "success",
+                "results": [
                     {
-                        "choice": "Swift",
-                        "votes": 2048
-                    }, {
-                        "choice": "Python",
-                        "votes": 1024
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 512
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 256
+                        "id": 1,
+                        "kode_kategori": "mkn",
+                        "nama_kategori": "Makanan"
+                    },
+                    {
+                        "id": 2,
+                        "kode_kategori": "mnm",
+                        "nama_kategori": "Minuman"
                     }
                 ]
             }
         ]
 
-### Create a New Question [POST]
+### Create a Category [POST]
 
-You may create your own question using this action. It takes a JSON
-object containing a question and a collection of answers in the
-form of choices.
-
-+ Request (application/json)
-
++ Response 200 (application/json)
+    [
         {
-            "question": "Favourite programming language?",
-            "choices": [
-                "Swift",
-                "Python",
-                "Objective-C",
-                "Ruby"
-            ]
-        }
-
-+ Response 201 (application/json)
-
-    + Headers
-
-            Location: /questions/2
-
-    + Body
-
-            {
-                "question": "Favourite programming language?",
-                "published_at": "2015-08-05T08:40:51.620Z",
-                "choices": [
-                    {
-                        "choice": "Swift",
-                        "votes": 0
-                    }, {
-                        "choice": "Python",
-                        "votes": 0
-                    }, {
-                        "choice": "Objective-C",
-                        "votes": 0
-                    }, {
-                        "choice": "Ruby",
-                        "votes": 0
-                    }
-                ]
+            "status": true,
+            "message": "success",
+            "results": {
+                "kodeKategori": "msk",
+                "namaKategori": "Masker"
             }
+        }
+    ]      
+### Update a Category [PUT]
+
++ Response 200 (application/json)
+    [
+        {
+            "status": true,
+            "message": "success",
+            "results": {
+                "kodeKategori": "msk",
+                "namaKategori": "Maskerr"
+            }
+        }  
+    ]   
+
+### Delete a Category [DELETE]
+
++ Response 200 (application/json)
+    [
+        {
+            "status": true,
+            "message": "success",
+            "results": ""
+        }
+    ]    

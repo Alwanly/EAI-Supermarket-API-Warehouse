@@ -21,7 +21,7 @@ exports.kategoriGetAll =((req,res)=>{
             console.log(err);
             response.error(res);
         }
-        response.success(rows,res);
+        response.success(messageSuccess,rows,res);
     });    
 });
 
@@ -34,7 +34,7 @@ exports.createKategori = ((req,res)=>{
             console.log(err);
             response.error(res);
         }
-        response.success(messageSuccess,data,rows);        
+        response.success(messageSuccess,data,res);        
     });
 });
 

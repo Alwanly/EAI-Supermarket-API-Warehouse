@@ -5,7 +5,6 @@ const conn = require('../config/connection');
 const messageSuccess = "success";
 const messageFailed ="failed";
 const messageError = "error";
-
 const Stok = ((stok)=>{
     const object ={};
     object.idStok = stok.id_stok;
@@ -29,14 +28,14 @@ exports.stokGetAll =((req,res)=>{
 
 exports.createStok = ((req,res)=>{
     const data = Stok(req.body);
-    conn.query("INSERT INTO produk (produk_id,jml_stok,jml_prd_bagus,jml_prd_cacat) VALUES (?,?,?,?)",
+    conn.query("INSERT INTO stok (produk_id,jml_stok,jml_prd_bagus,jml_prd_cacat) VALUES (?,?,?,?)",
     [data.produkID,data.jmlStok,data.jmlProdukBagus,data.jmlProdukCacat],
     (err,rows,fields)=>{
         if(err){
             console.log(err);
             response.error(res);
         }
-        response.success(messageSuccess,data,rows);        
+        response.success(messageSuccess,data,res);        
     });
 });
 

@@ -12,18 +12,18 @@ let dataProduk = [] ;
 
 const formatDate = (date)=>{
     // let newDate = (new Date(date).toISOString().split('T'))[0];
-    return newDate = date;
+    return date;
 }
 
 const formatDateTimestamp = (date) => {
     // let newDate = new Date(date).toISOString().replace(/T/, ' ').replace(/\..+/, '');
-    return newDate = date;
+    return date;
 }
 
 const Produk = ((element)=>{  
-
     const data = {
         id_produk:element.id_produk,
+        kode_produk:element.kode_produk,
         nama_produk:element.nama_produk,
         kategori:{
             id_kategori:element.id_kategori,
