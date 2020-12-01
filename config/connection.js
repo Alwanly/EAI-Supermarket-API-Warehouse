@@ -1,3 +1,4 @@
+"use strict";
 const mysql = require('mysql');
 require('dotenv').config();
 let connection = "";    

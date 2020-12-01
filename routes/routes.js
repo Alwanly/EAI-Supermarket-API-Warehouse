@@ -1,4 +1,4 @@
-
+"use strict";
 module.exports = ((app,router)=>{
     const produkController = require('../controllers/produk.controllers');
     const kategoriController = require('../controllers/kategori.controllers');

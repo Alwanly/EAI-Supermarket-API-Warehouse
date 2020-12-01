@@ -1,3 +1,4 @@
+"use strict";
 exports.success = ((message,values, res)=>{
     const data ={
         'status':true,

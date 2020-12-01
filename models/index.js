@@ -1,3 +1,4 @@
+"use strict";
 const { match } = require('../config/connection');
 
 if(!global.hasOwnProperty('db')){

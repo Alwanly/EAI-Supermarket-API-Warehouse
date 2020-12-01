@@ -1,3 +1,5 @@
+"use strict";
+
 const response = require('../config/response');
 const conn = require('../config/connection');
 

@@ -1,6 +1,7 @@
+"use strict";
+
 const response = require('../config/response');
 const conn = require('../config/connection');
-
 
 const messageSuccess = "success";
 const messageFailed ="failed";
