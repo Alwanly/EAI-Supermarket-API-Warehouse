@@ -1,10 +1,7 @@
 FORMAT: 1A
-HOST: https://polls.apiblueprint.org/
+HOST: http://supermarket-warehouse.herokuapp.com/api/v1
 
-# supermarketwarehouse
-
-Polls is a simple API allowing consumers to view polls and vote in them.
-
+# Super Market Divisi Warehouse
 
 ## Produk [/products]
 ### GET All Produk [GET]
@@ -46,8 +43,11 @@ Polls is a simple API allowing consumers to view polls and vote in them.
         }
     ]
 }
-
+## produk by kategori [/products/{kode_kategori}]
 ### GET All Produk By Category [GET]
+
++ Parameters
+    + kode_kategori(required,string, `A11`)
 
 + Response 200 (application/json)
     {
@@ -87,7 +87,52 @@ Polls is a simple API allowing consumers to view polls and vote in them.
     ]
 }
 
-## Stok [/api/v1/stok]
+## produk by id [/products/{id}]
+### GET All Produk By Category [GET]
+
++ Parameters
+    + id(required,number, `1`)
+
++ Response 200 (application/json)
+    {
+    "status": true,
+    "message": "Success",
+    "results": [
+        {
+            "id_produk": 1,
+            "kode_produk": "A11",
+            "nama_produk": "Oreo Vanilla",
+            "kategori": {
+                "kode_kategori": "A1",
+                "nama_kategori": "Makanan"
+            },
+            "deskripsi_produk": "Biskuit coklat dengan krim putih di tengahnya",
+            "merk_produk": "Oreo",
+            "tgl_produksi": "2019-12-31T17:00:00.000Z",
+            "tgl_kadaluarsa": "2019-12-31T17:00:00.000Z",
+            "created_at": "2020-12-01T17:12:18.000Z",
+            "updated_at": "2020-12-01T17:12:18.000Z"
+        },
+        {
+            "id_produk": 2,
+            "kode_produk": "A22",
+            "nama_produk": "Ultramilk Vanilla",
+            "kategori": {
+                "kode_kategori": "A2",
+                "nama_kategori": "Minuman"
+            },
+            "deskripsi_produk": "Susu sapi rasa vanilla",
+            "merk_produk": "Ultramilk",
+            "tgl_produksi": "2020-01-31T17:00:00.000Z",
+            "tgl_kadaluarsa": "2020-01-31T17:00:00.000Z",
+            "created_at": "2020-12-01T17:12:18.000Z",
+            "updated_at": "2020-12-01T17:12:18.000Z"
+        }
+    ]
+}
+
+
+## Stok [/stock]
 ### GET stok [GET]
 + Response 200 (application/json)
     
@@ -106,9 +151,18 @@ Polls is a simple API allowing consumers to view polls and vote in them.
                 }
             ]
         }        
-            
+
+## Create Stok [/stock/create]         
 ### POST stok [POST]
-+ Response 200 (application/json)
+
++ Request
+    {
+        "produk_id":1,
+        "jml_stok":10,
+        "jml_prd_bagus":10,
+        "jml_prd_cacat":10,
+    }
++ Response 201 (application/json)
 
         {
             "status": true,
@@ -125,7 +179,19 @@ Polls is a simple API allowing consumers to view polls and vote in them.
                 }
             ]
         }
+## Update Stok [/stock/{id}/update]        
 ### PUT stok [PUT]
+
++ Parameters
+    + id (required,integer,`1`)
+
++ Request
+    {
+        "produk_id":1,
+        "jml_stok":10,
+        "jml_prd_bagus":10,
+        "jml_prd_cacat":10,
+    }
 + Response 200 (application/json)
 
         {
@@ -143,7 +209,12 @@ Polls is a simple API allowing consumers to view polls and vote in them.
                 }
             ]
         }
-### DELETE stok [DELETE]
+## Delete Stok [/stock/{id}/delete]
+### DELETE [DELETE]
+
++ Parameters
+    + id (required,integer, `1`)
+
 + Response 200 (application/json)
 
         {
@@ -156,10 +227,10 @@ Polls is a simple API allowing consumers to view polls and vote in them.
             ]
         }
 
-## Pengembalian [/api/v1/pengembalian]
-### Get Pengembalian [GET]
+## Pengembalian Produk [/return]
+### Get [GET]
 
-+ Response 200 (application/json)
++ Response 201 (application/json)
 
         {
             "status": true,
@@ -179,7 +250,20 @@ Polls is a simple API allowing consumers to view polls and vote in them.
         }
 
 
+## Update Pemgembalian Produk [/return/{id}/update]
 ### Put Pengembalian [PUT]
+
++ Parameters
+    + id (required,integer,`1`)
+
++ Request
+    {        
+        "produk_id": 3,
+        "keterangan": "Barang tidak sesuai",
+        "jml_produk": 5,
+        "tgl_pengajuan": "2020-11-30",
+        "tgl_pengembalian": "2020-12-02",    
+    }
 
 + Response 200 (application/json)
 
@@ -202,7 +286,11 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 
 
 
-### Delete Pengembalian [DELETE]
+## Hapus Pengembalian Produk [/return/{id}/delete]
+### Delete [DELETE]
+
++ Parameters
+    + id (required,integer,`1`)
 
 + Response 200 (application/json)
 
@@ -218,33 +306,31 @@ Polls is a simple API allowing consumers to view polls and vote in them.
 
 
 
-### Post Pengembalian [POST]
+## Create Pemgembalian Barang [/return/create]
+### Post[POST]
 
++ Request
+    {        
+        "produk_id": 3,
+        "keterangan": "Barang tidak sesuai",
+        "jml_produk": 5,
+        "tgl_pengajuan": "2020-11-30",
+        "tgl_pengembalian": "2020-12-02"
+    }
 + Response 200 (application/json)
 
             {
                 "status": true,
                 "message": "success",
                 "results": [
-                    {
-                        "id_pengembalian": 1,
-                        "produk_id": 3,
-                        "keterangan": "Barang tidak sesuai",
-                        "jml_produk": 5,
-                        "tgl_pengajuan": "2020-11-30T17:00:00.000Z",
-                        "tgl_pengembalian": "2020-12-02T17:00:00.000Z",
-                        "created_at": "2020-12-17T15:19:33.000Z",
-                        "updated_at": "2020-12-10T15:19:33.000Z"
-                    }
+                   
                 ]
             }
 
-## Notes [/api/v1/notes]
-
-### POST a note [POST]
+## Get Notes [/notes]
+###  GET [GET]
 
 + Response 200 (application/json)
-
         {
             "status":true,
             "message":"success",
@@ -260,8 +346,17 @@ Polls is a simple API allowing consumers to view polls and vote in them.
             ]
         }
 
+## Update Pencatatan Produl [/notes/{id}/update]
 ### put note [PUT]
 
++ Parameters
+    + id (required,integer,`1`)
++ Request
+    {     
+        "status_id":4,
+        "produk_id":4,
+        "jml_produk":10
+    }
 + Response 200 (application/json)
 
         [{
@@ -280,8 +375,11 @@ Polls is a simple API allowing consumers to view polls and vote in them.
         }     
 
 
-### delete note [DELETE]
+## Hapus Pencatatan Produk [/note/{id}/delte]
+### Delete [DELETE]
 
++ Parameters
+    + id (required,integer,`1`)
 
 + Response 200 (application/json)
 
@@ -292,9 +390,8 @@ Polls is a simple API allowing consumers to view polls and vote in them.
             }                            
         }
 
-## Categories [/api/v1/categories]
-
-### List All Categories [GET]
+## Get All Categories [/categories]
+### Get [GET]
 
 + Response 200 (application/json)
 
@@ -317,7 +414,14 @@ Polls is a simple API allowing consumers to view polls and vote in them.
             }
         ]
 
-### Create a Category [POST]
+## Buat kategori [/catagory/create]
+### POST [POST]
+
++ Request
+    {
+        "kodeKategori": "msk",
+        "namaKategori": "Masker"
+    }
 
 + Response 200 (application/json)
     [
@@ -330,7 +434,17 @@ Polls is a simple API allowing consumers to view polls and vote in them.
             }
         }
     ]      
-### Update a Category [PUT]
+## Update kategori [/catagory/{id}/update]
+### Update [PUT]
+
++ Parameters
+    + id (required,integer,`1`)
+
++ Request
+    {
+        "kodeKategori": "msk",
+        "namaKategori": "Masker"
+    }   
 
 + Response 200 (application/json)
     [
@@ -343,8 +457,11 @@ Polls is a simple API allowing consumers to view polls and vote in them.
             }
         }  
     ]   
+## Hapus kategori by id [/category/{id}/delete]
+### Delete [DELETE]
 
-### Delete a Category [DELETE]
++ Parameters
+    + id (required,integer,`1`)
 
 + Response 200 (application/json)
     [
