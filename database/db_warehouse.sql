@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 01 Des 2020 pada 23.47
+-- Waktu pembuatan: 10 Des 2020 pada 17.52
 -- Versi server: 10.1.37-MariaDB
--- Versi PHP: 7.2.12
+-- Versi PHP: 7.4.13
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -40,7 +39,7 @@ CREATE TABLE `kategori` (
 
 INSERT INTO `kategori` (`id`, `kode_kategori`, `nama_kategori`) VALUES
 (6, 'A1', 'Makanan'),
-(7, 'A2', 'Minuman');
+(7, 'B1', 'Minuman');
 
 -- --------------------------------------------------------
 
@@ -54,8 +53,15 @@ CREATE TABLE `pencatatan_produk` (
   `produk_id` bigint(20) NOT NULL,
   `jml_produk` int(11) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pencatatan_produk`
+--
+
+INSERT INTO `pencatatan_produk` (`id_pencatatan`, `status_id`, `produk_id`, `jml_produk`, `created_at`, `updated_at`) VALUES
+(1, 1, 1, 10, '2020-12-10 16:35:53', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -71,8 +77,15 @@ CREATE TABLE `pengembalian_produk` (
   `tgl_pengajuan` date NOT NULL,
   `tgl_pengembalian` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `pengembalian_produk`
+--
+
+INSERT INTO `pengembalian_produk` (`id_pengembalian`, `produk_id`, `keterangan`, `jml_produk`, `tgl_pengajuan`, `tgl_pengembalian`, `created_at`, `updated_at`) VALUES
+(1, 1, 'rusak', 10, '2020-09-03', '2020-10-02', '2020-12-10 09:55:18', '2020-12-10 15:53:01');
 
 -- --------------------------------------------------------
 
@@ -98,11 +111,12 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id_produk`, `kategori_id`, `kode_produk`, `nama_produk`, `deskripsi_produk`, `merk_produk`, `tgl_produksi`, `tgl_kadaluarsa`, `created_at`, `updated_at`) VALUES
-(1, 6, 'A11', 'Oreo Vanilla', 'Biskuit coklat dengan krim putih di tengahnya', 'Oreo', '2020-01-01', '2021-01-01', '2020-12-01 17:12:18', '2020-12-01 17:12:18'),
-(2, 7, 'A22', 'Ultramilk Vanilla', 'Susu sapi rasa vanilla', 'Ultramilk', '2020-02-01', '2021-02-01', '2020-12-01 17:12:18', '2020-12-01 17:12:18'),
-(3, 6, 'A33', 'Sari Roti Cokelat', 'Roti rasa cokelat', 'Sari Roti', '2020-02-02', '2021-02-02', '2020-12-01 17:13:16', '2020-12-01 17:13:16'),
-(4, 7, 'A44', 'Air Mineral', 'Air Mineral isi 60 ml', 'Aqua', '2020-02-03', '2022-02-03', '2020-12-01 17:13:16', '2020-12-01 17:13:16'),
-(5, 6, 'A55', 'Indomie Goreng Rasa Bawang', 'Mie instan cepat saji rasa bawang', 'Indomie', '2020-02-04', '2021-02-04', '2020-12-01 17:13:38', '2020-12-01 17:13:38');
+(1, 6, 'AA', 'Oreo Vanilla', 'Biskuit coklat dengan krim putih di tengahnya', 'Oreo', '2020-12-02', '2021-12-12', '2020-12-01 17:12:18', '2020-12-10 09:53:00'),
+(5, 6, 'A55', 'Indomie Goreng Rasa Bawang', 'Mie instan cepat saji rasa bawang', 'Indomie', '2020-02-04', '2021-02-04', '2020-12-01 17:13:38', '2020-12-01 17:13:38'),
+(15, 7, 'A22', 'Ultramilk Vanilla', 'Roti rasa cokelat', 'Ultramilk', '2020-12-11', '2021-12-11', '2020-12-10 17:50:26', '2020-12-10 17:50:26'),
+(16, 6, 'A33', 'Sari Roti Cokelat', 'Roti rasa cokelat', 'Sari Roti', '2020-12-11', '2020-12-17', '2020-12-10 17:50:26', '2020-12-10 17:50:26'),
+(19, 7, 'A44', 'Air Mineral', 'Air Mineral isi 60 ml', 'Aqua', '2020-12-11', '2021-12-11', '2020-12-10 17:51:41', '2020-12-10 17:51:41'),
+(20, 6, 'A51', 'Mie Sedap Goreng Rasa Bawang', 'Mie instan cepat saji rasa bawang', 'Indofood', '2020-12-11', '2022-12-11', '2020-12-10 17:51:41', '2020-12-10 17:52:13');
 
 -- --------------------------------------------------------
 
@@ -115,7 +129,7 @@ CREATE TABLE `status` (
   `kode_status` varchar(255) NOT NULL,
   `nama_status` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -139,8 +153,8 @@ CREATE TABLE `stok` (
   `jml_stok` int(11) NOT NULL,
   `jml_prd_bagus` int(11) NOT NULL,
   `jml_prd_cacat` int(11) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -148,8 +162,8 @@ CREATE TABLE `stok` (
 --
 
 INSERT INTO `stok` (`id_stok`, `produk_id`, `jml_stok`, `jml_prd_bagus`, `jml_prd_cacat`, `created_at`, `updated_at`) VALUES
-(1, 1, 100, 99, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 2, 1000, 999, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(4, 1, 100, 100, 0, '2020-12-10 07:41:37', '2020-12-10 07:41:37'),
+(5, 1, 100, 100, 0, '2020-12-10 07:52:40', '2020-12-10 07:52:40');
 
 --
 -- Indexes for dumped tables
@@ -212,19 +226,19 @@ ALTER TABLE `kategori`
 -- AUTO_INCREMENT untuk tabel `pencatatan_produk`
 --
 ALTER TABLE `pencatatan_produk`
-  MODIFY `id_pencatatan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pencatatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `pengembalian_produk`
 --
 ALTER TABLE `pengembalian_produk`
-  MODIFY `id_pengembalian` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengembalian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id_produk` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_produk` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `status`
@@ -236,7 +250,7 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT untuk tabel `stok`
 --
 ALTER TABLE `stok`
-  MODIFY `id_stok` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_stok` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

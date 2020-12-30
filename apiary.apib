@@ -152,6 +152,25 @@ HOST: http://supermarket-warehouse.herokuapp.com/api/v1
             ]
         }        
 
+## Stok By Month and Years [/stock/month]
+### GET StokByMonth [GET]
++ Response 200 (application/json)
+    
+        {
+            "status": true,
+            "message": "success",
+            "results": [
+                {
+                    "id_stok": 1,
+                    "produk_id": 3,
+                    "jml_stok": 100,
+                    "jml_prd_bagus": 95,
+                    "jml_prd_cacat": 5,
+                    "created_at": "0000-00-00 00:00:00",
+                    "updated_at": "0000-00-00 00:00:00"
+                }
+            ]
+        } 
 ## Create Stok [/stock/create]         
 ### POST stok [POST]
 
@@ -179,20 +198,21 @@ HOST: http://supermarket-warehouse.herokuapp.com/api/v1
                 }
             ]
         }
-## Update Stok [/stock/{id}/update]        
+## Update Stok [/stock/{id_stok}/update]        
 ### PUT stok [PUT]
 
 + Parameters
-    + id (required,integer,`1`)
+    + id_stok (required,integer,4)
 
 + Request
     {
         "produk_id":1,
         "jml_stok":10,
         "jml_prd_bagus":10,
-        "jml_prd_cacat":10,
+        "jml_prd_cacat":10
     }
-+ Response 200 (application/json)
+
++ Response 201 (application/json)
 
         {
             "status": true,
